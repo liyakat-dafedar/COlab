@@ -11,7 +11,7 @@ int main()
     decimal = no;
     while(1)
     {
-        printf("\n1:Decimal to binary\n2:binary to decimal\n\tEnter your choice(1-2)");
+        printf("\n1:Decimal to binary\n2:binary to decimal\n\tEnter your choice(1-2):\t");
         scanf("%d",&choice);
         switch(choice)
         {
@@ -49,17 +49,15 @@ void binary_to_decimal()
 {
     int j, no, n;
     int k;
-    k = 0; no = 0;
+    no = 0;
     printf("Enter the binary no:\t");
     scanf("%d",&n);
     while(n)
     {
-        no += (n%10) + pow(2,i);
+        no += (n%10) * pow(2,i);
         n = n / 10;
         i++;
     }
-
-
 
     printf("\nThe equivalent decimal no = %d",no);
 
@@ -71,3 +69,29 @@ void binary_to_decimal()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+*#git123@?
+*/
