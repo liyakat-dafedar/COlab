@@ -4,9 +4,10 @@
 #include<string.h>
 void decimal_to_hexadecimal(int);
 void binary_to_hexadecimal(char []);
-void hexadecimal_to_decimal(char []);
+int hexadecimal_to_decimal(char []);
 void hexadecimal_to_binary(char []);
 int binary_to_decimal(char []);
+int decimal_to_binary(char []);
 char hex[] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 int main()
 {
@@ -14,24 +15,24 @@ int main()
     char n[40];
     while(1)
     {
-        printf("\n1:Decimal to HexaDecimal\n2:Binary to HexaDecimal\n3:HexaDecimal to Decimal\n4:HexaDecimal to Binary\n5:Exit\n\tEnter your choice(1-5):\t");
+        printf("\n\n1:Decimal to HexaDecimal\n2:Binary to HexaDecimal\n3:HexaDecimal to Decimal\n4:HexaDecimal to Binary\n5:Exit\n\tEnter your choice(1-5):\t");
         scanf("%d",&choice);
         switch(choice)
         	{
-	            case 1 : printf("Enter the decimal number\t:");
+	            case 1 : printf("\nEnter the decimal number\t:");
 	                     scanf("%d",&no);
 	                     decimal_to_hexadecimal(no);
 	                     break;
-	            case 2 : printf("Enter the binary no:\t");
+	            case 2 : printf("\nEnter the binary no:\t");
                          scanf("%s",&n);
-	                     printf("HexaDecimal Equivalent = ");
+	                     printf("\n\tHexaDecimal Equivalent = ");
 	                     binary_to_hexadecimal(n);
 	                     break;
-	            case 3 : printf("Enter the HexaDecimal number\t:");
+	            case 3 : printf("\nEnter the HexaDecimal number\t:");
 	                     scanf("%s",&n);
-	                     hexadecimal_to_decimal(n);
+	                     printf("\n\tDecimal Equivalent = %d\n",hexadecimal_to_decimal(n));
 	                     break;
-	            case 4 : printf("Enter the HexaDecimal no:\t");
+	            case 4 : printf("\nEnter the HexaDecimal no:\t");
                          scanf("%s",&n);
 	                     hexadecimal_to_binary(n);
 	                     break;
@@ -60,7 +61,7 @@ void decimal_to_hexadecimal(int n)
         temp[j] = ch[len - j - 1];
 
     temp[j] = '\0';
-    printf("HexaDecimal Equivalent = %s",temp);
+    printf("\n\tHexaDecimal Equivalent = %s",temp);
 }
 
 int binary_to_decimal(char bin[])
@@ -82,6 +83,7 @@ void binary_to_hexadecimal(char bin[])
     i = 0; count = 0; norm = 16;
     lenb = strlen(bin);
     // can normalize only 16 bits
+    norm = lenb + (4 - (lenb % 4));
     for (j = 0; j < norm - lenb; ++j)
     {
     	normb[j] = '0';
@@ -104,7 +106,7 @@ void binary_to_hexadecimal(char bin[])
 
 }
 
-void hexadecimal_to_decimal(char dec[])
+int hexadecimal_to_decimal(char dec[])
 {
 	int j, no, i, n[40], len;
     no = 0; i = 0; len = strlen(dec);
@@ -132,11 +134,22 @@ void hexadecimal_to_decimal(char dec[])
     {
         no += ( n[j]* pow(16,i));
     }
-    printf("Decimal Equivalent = %d\n",no );
+    //printf("Decimal Equivalent = %d\n",no );
+    return no;
 }
 
 
-void hexadecimal_to_binary(char [])
+void hexadecimal_to_binary(char hexadecimal[])
 {
-	
+	int n, bin, rem, dec;
+	n = hexadecimal_to_decimal(hexadecimal);
+	bin = 0; dec = 1;
+    while(n > 0)
+	{
+		rem = n % 2;
+		bin = bin + (rem * dec);
+		dec *= 10;
+		n /=2;
+	}
+	printf("\n\tBinary Equivalent = %d\n",bin );
 }

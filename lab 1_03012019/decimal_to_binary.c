@@ -44,11 +44,8 @@ void decimal_to_binary(int n)
 
 void binary_to_decimal(int n)
 {
-    int j, no, i, rem;
-    int k;
+    int no, i, rem;
     no = 0;i=0;
-    if (n < 0)
-        n *= -1;
     while(n > 0)
     {
         rem = n % 10;
