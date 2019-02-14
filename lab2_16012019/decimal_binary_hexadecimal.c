@@ -1,6 +1,3 @@
-/*Programmer : Liyakath Dafedar*/
-/*Program : Octal to binary and vise verse , Hexadecimal to binary and vise verse*/
-/*Date : 25 - 1 - 18*/
 #include<stdio.h>
 #include<math.h>
 #include<stdlib.h>
