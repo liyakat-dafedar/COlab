@@ -7,35 +7,69 @@ void two_s_complement(char[]);
 void sub(char[],char[]);
 char shift(char[]);
 char twoshift(char[],char[]);
+void display(char[],char[]);
 int main()
 {
-    int n1=12, n2=13,i;
-    char bin1[10], bin2[10], q;
-    char bin3[4];
-    for(i=0;i<4;i++)
-        bin3[i]='0';
-    /*printf("Enter the first number:");
-    scanf("%d",&n1);*/
-    decimal_to_binary(9,bin1);
-    /*printf("Enter the second number:");
-    scanf("%d",&n2);*/
-    decimal_to_binary(9,bin2);
-    //sub(bin1,bin2);
-    /*printf("binary Equivalent1 = %s\n",bin1);
-    printf("binary Equivalent2 = %s\n",bin2);
+    int i,n1,n2,n3,n4;
+    char bin1[10], bin2[10],bin3[10],bin4[10], q;
+    printf("Enter the first number:");
+    scanf("%d",&n1);
+    decimal_to_binary(n1,bin1);
+    printf("Enter the second number:");
+    scanf("%d",&n2);
+    //n1=6; n3 = n1*-1;
+    //n2=-5;
 
-    //add(bin1,bin2);
-    q = shift(bin1);
-    printf("Q-1=%c\n",q);
-    q = shift(bin2);
-    printf("Q-2=%c",q);  two_s_complement(bin2);*/
+    if (n1 < 0)
+    {
+        n3 = -1*n1;
+        decimal_to_binary(n3,bin1);
+
+        bin3[0]='0';
+        bin3[1] = '\0';
+        strcat(bin3,bin1);
+        strcpy(bin1,bin3);
+
+        //printf("binary Equivalent(M) = %s\n",bin1);
+        two_s_complement(bin1);
+        //printf("binary Equivalent(M) = %s\n",bin1);
+    }
+    else
+    {
+        decimal_to_binary(n1,bin1);
+        bin3[0]='0';
+        bin3[1] = '\0';
+        strcat(bin3,bin1);
+        strcpy(bin1,bin3);
+    }
+    if (n2 < 0)
+    {
+        n4 = -1*n2;
+        decimal_to_binary(n4,bin2);
+
+        bin4[0]='0';
+        bin4[1] = '\0';
+        strcat(bin4,bin2);
+        strcpy(bin2,bin4);
+
+        //printf("binary Equivalent(M) = %s\n",bin1);
+        two_s_complement(bin2);
+        printf("binary Equivalent(M) = %s\n",bin2);
+    }
+    else
+    {
+        decimal_to_binary(n2,bin2);
+        bin4[0]='0';
+        bin4[1] = '\0';
+        strcat(bin4,bin2);
+        strcpy(bin2,bin4);
+    }
 
     printf("binary Equivalent(M) = %s\n",bin1);
     printf("binary Equivalent(Q) = %s\n",bin2);
     //sub(bin3,bin2);
 //printf("binary Equivalent3 = %s--\n",bin3);
     bhootsAlgorithm(bin1,bin2);
-
 }
 
 void decimal_to_binary(int n, char bin[])
@@ -73,37 +107,38 @@ void bhootsAlgorithm(char M[], char Q[])
         A[i] = '0';
 
     A[i] = '\0';
-    printf("A = %s\tQ = %s\tQ-1=%c\tM= %s\n\n",A,Q,Qminus1,M);
-    for(i=1;i<=count;i++)
+    printf("A = %s\tQ = %s\tQ-1=%c\tM= %s\t=>Initialization\n\n",A,Q,Qminus1,M);
+    for(i=0;i<=count-1;i++)
     {
         if (Q0 == '1' && Qminus1 == '0')
         {
             sub(A,M);
-            printf("[1,0]:A = %s\tQ = %s\tQ-1=%c\tM= %s\n",A,Q,Qminus1,M);
+            printf("[1,0]:A = %s\tQ = %s\tQ-1=%c\tM= %s\t=>A=A-M\n",A,Q,Qminus1,M);
             Qminus1 = twoshift(A,Q);
-            printf("[1,0]:A = %s\tQ = %s\tQ-1=%c\tM= %s\n\n",A,Q,Qminus1,M);
+            printf("[1,0]:A = %s\tQ = %s\tQ-1=%c\tM= %s\t=>Arithmetic right shift\n-7\n",A,Q,Qminus1,M);
             Q0 = Q[3];
         }
         else if (Q0 == '0' && Qminus1 == '1')
         {
             add(A,M);
-            printf("\nSum:%s\n",A);
-            printf("[0,1]:A = %s\tQ = %s\tQ-1=%c\tM= %s\n",A,Q,Qminus1,M);
+            //printf("\nSum:%s\n",A);
+            printf("[0,1]:A = %s\tQ = %s\tQ-1=%c\tM= %s\t=>A=A+M\n",A,Q,Qminus1,M);
             Qminus1 = twoshift(A,Q);
-            printf("[0,1]:A = %s\tQ = %s\tQ-1=%c\tM= %s\n\n",A,Q,Qminus1,M);
+            printf("[0,1]:A = %s\tQ = %s\tQ-1=%c\tM= %s\t=>Arithmetic right shift\n\n",A,Q,Qminus1,M);
             Q0 = Q[3];
         }
         else if (Q0 ==  Qminus1)
         {
-            printf("[ , ]:A = %s\tQ = %s\tQ-1=%c\tM= %s\n",A,Q,Qminus1,M);
+            //printf("[ , ]:A = %s\tQ = %s\tQ-1=%c\tM= %s\n",A,Q,Qminus1,M);
             Qminus1 = twoshift(A,Q);
-            printf("[ , ]A = %s\tQ = %s\tQ-1=%c\tM= %s\n\n",A,Q,Qminus1,M);
+            printf("[ , ]A = %s\tQ = %s\tQ-1=%c\tM= %s\t=>Arithmetic right shift\n\n",A,Q,Qminus1,M);
             Q0 = Q[3];
         }
     }
     A[i] = '\0';    M[i] = '\0';
     //printf("binary Equivalent1 f= %s\n",A);
     //printf("binary Equivalent2 f= %s\n",M);
+    display(A,M);
 }
 
 char shift(char arr[])
@@ -232,4 +267,8 @@ char twoshift(char a[],char b[])
         b[i+1] = d[i];
     //printf("\nA=%s,B=%s\n",a,b );
     return qm;
+}
+void display(char a[],char b[])
+{
+    printf("a=%s,b=%s");
 }
