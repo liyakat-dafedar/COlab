@@ -1,0 +1,23 @@
+data segment
+    a db 2
+    b db 3
+    sum db ?
+ends
+
+
+code segment
+start: 
+    mov ax, data
+    mov ds, ax
+    xor ax, ax
+    mov al, a
+    add al, b
+    mov sum, al
+
+
+mov ax, 4c00h
+int 21h  
+
+code ends
+
+end start
