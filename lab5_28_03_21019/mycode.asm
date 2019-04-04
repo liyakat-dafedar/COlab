@@ -1,28 +1,27 @@
 data segment
-sum1 dw 0 
-sum 2 dw 0
-n1 dd 0FFFFFFFFh
-n2 dd 0FFFFFFFFh
-
-ends
-
+abc dd 12345678h
+def dd 9ABCDEF0h
+ghi dw ?
+data ends
+ 
 code segment
+assume cs:code, ds:data
 start:
-
-   
-mov ax, word ptr [n1]
-mov bx, word ptr [n1+2]
-mov cx, word ptr [n2]
-mov dx, word ptr [n2+2]
-add ax, cx
-adc bx, dx
-mov  sum1,ax 
-mov  sum2, bx
-
-
-mov ax, 4c00h
-int 21h  
-
-ends
-
+mov ax,data
+mov ds,ax
+mov dl,00h
+mov ax, word ptr abc
+mov bx, word ptr def
+add ax,bx
+mov word ptr ghi,ax
+mov ax, word ptr abc+2
+mov bx, word ptr def+2
+adc ax,bx
+mov word ptr ghi+2,ax
+jnc move
+inc dl
+move: mov byte ptr ghi+4,dl     
+mov ah, 4ch
+int 21h
+code ends
 end start
