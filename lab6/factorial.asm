@@ -5,10 +5,10 @@
 
 data segment
    n db ?
-   fact dw 01h  
+   fact dw 00h  
    t db 10
    msg db "Enter a number:$"
-   msgr db 10,13"The factorial of the entered number is $"
+   msgr db 10,13,"The factorial of the entered number is $"
 ends
 
 
@@ -37,18 +37,20 @@ start:  mov ax, data
         mov cl, al
         mov al, 01h
    top: mul cl
-        loop top 
-        mov ah, 0
-        div t 
-        mov bl,al
-        mov bh, ah
+        loop top  
+        aam  
+        add ax,3030h
+        ;mov ah, 0
+        ;div t 
+        ;mov bl,al
+        ;mov bh, ah
         ;cmp al,00h
         ;jnz top1
         ;printno al
 
-	print msgr
-   top1:printno bl
-        printno bh
+	;print msgr
+	    mov fact, ax
+   top1:print fact
          
 
 

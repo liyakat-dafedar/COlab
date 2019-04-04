@@ -37,8 +37,9 @@ start:
         mov y, al
 	mov al, x
 	add al, y
-	mov bl, 2
+	mov bl, 02h
 	div bl
+	
         mov result, al
         print msgr
         printno result
